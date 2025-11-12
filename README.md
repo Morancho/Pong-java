@@ -41,7 +41,7 @@ src/
 │   ├── MenuPanel.java      # Menú principal amb selecció de mode
 │   └── GamePanel.java      # Lògica i dibuix del joc
 └── util/
-└── SoundPlayer.java    # Gestió simple de sons
+└── GameMode.java    # Enumeració dels modes de joc
 
 
 
