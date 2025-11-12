@@ -33,15 +33,18 @@ Aquest projecte implementa una versió clàssica i funcional del joc **Pong** en
 
 ## 📁 Estructura del projecte
 
+```
 src/
-pong/
-Main.java               # Classe principal per iniciar el joc
-ui/
-PongFrame.java        # Contenidor principal amb gestió de pantalles
-MenuPanel.java        # Menú principal amb selecció de mode
-GamePanel.java        # Lògica i dibuix del joc
-util/
-GameMode.java         # Enumeració dels modes de joc
+  pong/
+    Main.java               # Classe principal per iniciar el joc
+    ui/
+      PongFrame.java        # Contenidor principal amb gestió de pantalles
+      MenuPanel.java        # Menú principal amb selecció de mode
+      GamePanel.java        # Lògica i dibuix del joc
+    util/
+      GameMode.java         # Enumeració dels modes de joc
+```
+
 
 
 
