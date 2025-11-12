@@ -1,4 +1,6 @@
 package src.util;
 
-public class GameMode {
+public enum GameMode {
+    LOCAL,
+    VS_AI
 }
