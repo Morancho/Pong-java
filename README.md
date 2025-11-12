@@ -35,14 +35,14 @@ Aquest projecte implementa una versió clàssica i funcional del joc **Pong** en
 
 ```
 src/
-  pong/
+  main/
     Main.java               # Classe principal per iniciar el joc
-    ui/
-      PongFrame.java        # Contenidor principal amb gestió de pantalles
-      MenuPanel.java        # Menú principal amb selecció de mode
-      GamePanel.java        # Lògica i dibuix del joc
-    util/
-      GameMode.java         # Enumeració dels modes de joc
+  ui/
+    PongFrame.java        # Contenidor principal amb gestió de pantalles
+    MenuPanel.java        # Menú principal amb selecció de mode
+    GamePanel.java        # Lògica i dibuix del joc
+  util/
+    GameMode.java         # Enumeració dels modes de joc
 ```
 
 
@@ -64,5 +64,5 @@ src/
 Des de la carpeta `src/`, executa:
 
 ```bash
-javac pong/Main.java pong/ui/*.java pong/util/*.java
-java pong.Main
+1. javac main/Main.java ui/*.java util/*.java
+2. java main.Main
