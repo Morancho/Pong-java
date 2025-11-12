@@ -2,6 +2,8 @@ package src.ui;
 
 import src.game.*;
 import src.util.GameMode;
+import src.util.SoundPlayer;
+
 
 import src.Main;
 
@@ -56,16 +58,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         // Col·lisions amb les pales
         if (ball.getBounds().intersects(left.getBounds())) {
             ball.bounceWithAngle(left);
+            SoundPlayer.play("bounce.wav");
         } else if (ball.getBounds().intersects(right.getBounds())) {
             ball.bounceWithAngle(right);
+            SoundPlayer.play("bounce.wav");
         }
 
         // Punts
         if (ball.getX() < 0) {
             score.rightPoint();
-            ball.reset();
+            SoundPlayer.play("score.wav");
+            ball.reset(); // més endavant ajustarem la direcció segons qui ha perdut
         } else if (ball.getX() > WIDTH) {
             score.leftPoint();
+            SoundPlayer.play("score.wav");
             ball.reset();
         }
 
