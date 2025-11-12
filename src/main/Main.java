@@ -1,7 +1,7 @@
-package src;
+package main;
 
-import src.game.PongGame;
-import src.util.GameMode;
+import game.PongGame;
+import util.GameMode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class Main {
     }
 
     private void showMenu() {
-        JFrame frame = new JFrame("PONG - Oriol Edition");
+        JFrame frame = new JFrame("PONG - 1st Edition");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -38,4 +38,5 @@ public class Main {
 
         frame.setVisible(true);
     }
+
 }

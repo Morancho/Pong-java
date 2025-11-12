@@ -1,11 +1,8 @@
-package src.ui;
+package ui;
 
-import src.game.*;
-import src.util.GameMode;
-import src.util.SoundPlayer;
-
-
-import src.Main;
+import game.*;
+import util.GameMode;
+import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Score score;
     private GameMode mode;
     private Timer timer;
-    private boolean upPressed, downPressed;
+    private boolean upPressed, downPressed, wPressed, sPressed;
 
     public GamePanel(GameMode mode) {
         this.mode = mode;
@@ -44,8 +41,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if (mode == GameMode.LOCAL) {
             // 2 jugadors — esquerra i dreta amb fletxes
-            if (upPressed) left.moveUp();
-            if (downPressed) left.moveDown();
+            if (upPressed) right.moveUp();
+            if (downPressed) right.moveDown();
+            if (wPressed) left.moveUp();
+            if (sPressed) left.moveDown();
         } else {
             // Mode contra IA
             if (upPressed) left.moveUp();
@@ -58,20 +57,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         // Col·lisions amb les pales
         if (ball.getBounds().intersects(left.getBounds())) {
             ball.bounceWithAngle(left);
-            SoundPlayer.play("bounce.wav");
         } else if (ball.getBounds().intersects(right.getBounds())) {
             ball.bounceWithAngle(right);
-            SoundPlayer.play("bounce.wav");
         }
 
         // Punts
         if (ball.getX() < 0) {
             score.rightPoint();
-            SoundPlayer.play("score.wav");
-            ball.reset(); // més endavant ajustarem la direcció segons qui ha perdut
+            ball.reset();
         } else if (ball.getX() > WIDTH) {
             score.leftPoint();
-            SoundPlayer.play("score.wav");
             ball.reset();
         }
 
@@ -109,6 +104,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP -> upPressed = true;
             case KeyEvent.VK_DOWN -> downPressed = true;
+            case KeyEvent.VK_W -> wPressed = true;
+            case KeyEvent.VK_S -> sPressed = true;
         }
     }
 
@@ -116,6 +113,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP -> upPressed = false;
             case KeyEvent.VK_DOWN -> downPressed = false;
+            case KeyEvent.VK_W -> wPressed = false;
+            case KeyEvent.VK_S -> sPressed = false;
         }
     }
 

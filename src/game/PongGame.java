@@ -1,7 +1,7 @@
-package src.game;
+package game;
 
-import src.ui.GamePanel;
-import src.util.GameMode;
+import ui.GamePanel;
+import util.GameMode;
 
 import javax.swing.*;
 
