@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     }
 
     public void startGame() {
-        new Countdown(this).start(() -> {
+        new pong.ui.Countdown(this).start(() -> {
             timer = new Timer(16, this);
             timer.start();
         });
@@ -51,9 +51,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         ball.move();
 
         // Col·lisions amb pales
-        if (ball.getBounds().intersects(left.getBounds()) || ball.getBounds().intersects(right.getBounds())) {
-            ball.bounceX();
-            ball.increaseSpeed();
+        if (ball.getBounds().intersects(left.getBounds())) {
+            ball.bounceWithAngle(left);
+        } else if (ball.getBounds().intersects(right.getBounds())) {
+            ball.bounceWithAngle(right);
         }
 
         // Punts

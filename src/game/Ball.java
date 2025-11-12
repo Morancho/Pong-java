@@ -4,7 +4,9 @@ import java.awt.*;
 import java.util.Random;
 
 public class Ball {
-    private int x, y, diameter;
+    private int x;
+    private int y;
+    private final int diameter;
     private double dx, dy, speed;
     private final double MAX_SPEED = 10;
 
@@ -19,15 +21,14 @@ public class Ball {
         x = 400 - diameter / 2;
         y = 300 - diameter / 2;
         Random rand = new Random();
-        speed = 5;
+        speed = 7; // velocitat inicial una mica més alta
         dx = rand.nextBoolean() ? speed : -speed;
         dy = (rand.nextDouble() - 0.5) * speed;
     }
 
     public void move() {
-        x += dx;
-        y += dy;
-
+        x += (int) dx;
+        y += (int) dy;
         if (y <= 0 || y >= 600 - diameter) dy = -dy;
     }
 
@@ -39,6 +40,22 @@ public class Ball {
     }
 
     public void bounceX() { dx = -dx; }
+
+    public void bounceWithAngle(Paddle paddle) {
+        // Calcular posició relativa dins de la pala (de -1 a +1)
+        double relativeIntersectY = (y + diameter / 2.0) - (paddle.getY() + paddle.getBounds().height / 2.0);
+        double normalized = relativeIntersectY / (paddle.getBounds().height / 2.0);
+
+        // Multiplicar per un angle màxim (~45°)
+        double angle = normalized * Math.toRadians(45);
+
+        // Direcció horitzontal segons el costat
+        double direction = (dx > 0) ? -1 : 1;
+
+        speed = Math.min(speed * 1.05, MAX_SPEED);
+        dx = direction * speed * Math.cos(angle);
+        dy = speed * Math.sin(angle);
+    }
 
     public int getX() { return x; }
     public int getY() { return y; }
