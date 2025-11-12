@@ -35,13 +35,14 @@ Aquest projecte implementa una versió clàssica i funcional del joc **Pong** en
 
 src/
 └── pong/
-├── Main.java # Classe principal per iniciar el joc
+├── Main.java               # Classe principal per iniciar el joc
 ├── ui/
-│ ├── PongFrame.java # Contenidor principal amb gestió de pantalles
-│ ├── MenuPanel.java # Menú principal amb selecció de mode
-│ └── GamePanel.java # Lògica i dibuix del joc
+│   ├── PongFrame.java      # Contenidor principal amb gestió de pantalles
+│   ├── MenuPanel.java      # Menú principal amb selecció de mode
+│   └── GamePanel.java      # Lògica i dibuix del joc
 └── util/
-└── SoundPlayer.java # Gestió simple de sons
+└── SoundPlayer.java    # Gestió simple de sons
+
 
 
 ---
