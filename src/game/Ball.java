@@ -4,11 +4,9 @@ import java.awt.*;
 import java.util.Random;
 
 public class Ball {
-    private int x;
-    private int y;
-    private final int diameter;
+    private int x, y, diameter;
     private double dx, dy, speed;
-    private final double MAX_SPEED = 10;
+    private final double MAX_SPEED = 13;
 
     public Ball(int x, int y, int diameter) {
         this.x = x;
@@ -21,38 +19,27 @@ public class Ball {
         x = 400 - diameter / 2;
         y = 300 - diameter / 2;
         Random rand = new Random();
-        speed = 7; // velocitat inicial una mica més alta
+        speed = 8; // més ràpida
         dx = rand.nextBoolean() ? speed : -speed;
         dy = (rand.nextDouble() - 0.5) * speed;
     }
 
     public void move() {
-        x += (int) dx;
-        y += (int) dy;
+        x += dx;
+        y += dy;
         if (y <= 0 || y >= 600 - diameter) dy = -dy;
     }
 
-    public void increaseSpeed() {
-        if (Math.abs(dx) < MAX_SPEED) {
-            dx *= 1.05;
-            dy *= 1.05;
-        }
-    }
-
-    public void bounceX() { dx = -dx; }
-
     public void bounceWithAngle(Paddle paddle) {
-        // Calcular posició relativa dins de la pala (de -1 a +1)
-        double relativeIntersectY = (y + diameter / 2.0) - (paddle.getY() + paddle.getBounds().height / 2.0);
-        double normalized = relativeIntersectY / (paddle.getBounds().height / 2.0);
-
-        // Multiplicar per un angle màxim (~45°)
+        // Calcular on toca dins de la pala (-1 = part superior, +1 = inferior)
+        double intersectY = (y + diameter / 2.0) - (paddle.getY() + paddle.getBounds().height / 2.0);
+        double normalized = intersectY / (paddle.getBounds().height / 2.0);
         double angle = normalized * Math.toRadians(45);
 
-        // Direcció horitzontal segons el costat
-        double direction = (dx > 0) ? -1 : 1;
+        // Direcció segons quin costat és la pala
+        double direction = (x < 400) ? 1 : -1;
 
-        speed = Math.min(speed * 1.05, MAX_SPEED);
+        speed = Math.min(speed * 1.07, MAX_SPEED);
         dx = direction * speed * Math.cos(angle);
         dy = speed * Math.sin(angle);
     }

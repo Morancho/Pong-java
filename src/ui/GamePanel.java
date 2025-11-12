@@ -3,6 +3,8 @@ package src.ui;
 import src.game.*;
 import src.util.GameMode;
 
+import src.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +16,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Score score;
     private GameMode mode;
     private Timer timer;
-    private boolean wPressed, sPressed, upPressed, downPressed;
+    private boolean upPressed, downPressed;
 
     public GamePanel(GameMode mode) {
         this.mode = mode;
@@ -30,7 +32,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     }
 
     public void startGame() {
-        new pong.ui.Countdown(this).start(() -> {
+        new Countdown(this).start(() -> {
             timer = new Timer(16, this);
             timer.start();
         });
@@ -38,19 +40,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (wPressed) left.moveUp();
-        if (sPressed) left.moveDown();
-
         if (mode == GameMode.LOCAL) {
-            if (upPressed) right.moveUp();
-            if (downPressed) right.moveDown();
+            // 2 jugadors — esquerra i dreta amb fletxes
+            if (upPressed) left.moveUp();
+            if (downPressed) left.moveDown();
         } else {
+            // Mode contra IA
+            if (upPressed) left.moveUp();
+            if (downPressed) left.moveDown();
             right.aiMove(ball);
         }
 
         ball.move();
 
-        // Col·lisions amb pales
+        // Col·lisions amb les pales
         if (ball.getBounds().intersects(left.getBounds())) {
             ball.bounceWithAngle(left);
         } else if (ball.getBounds().intersects(right.getBounds())) {
@@ -66,10 +69,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             ball.reset();
         }
 
+        // Comprovar guanyador
         if (score.hasWinner()) {
             timer.stop();
-            JOptionPane.showMessageDialog(this, score.getWinner() + " ha guanyat!");
-            System.exit(0);
+            String winner = score.getWinner();
+            JOptionPane.showMessageDialog(this, winner + " ha guanyat!");
+            SwingUtilities.invokeLater(() -> {
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                topFrame.dispose();
+                new Main().main(null); // Tornar al menú principal
+            });
+            return;
         }
 
         repaint();
@@ -91,8 +101,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     // Controls
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> wPressed = true;
-            case KeyEvent.VK_S -> sPressed = true;
             case KeyEvent.VK_UP -> upPressed = true;
             case KeyEvent.VK_DOWN -> downPressed = true;
         }
@@ -100,8 +108,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> wPressed = false;
-            case KeyEvent.VK_S -> sPressed = false;
             case KeyEvent.VK_UP -> upPressed = false;
             case KeyEvent.VK_DOWN -> downPressed = false;
         }
