@@ -6,20 +6,22 @@ import java.util.Random;
 public class Ball {
     private int x, y, diameter;
     private double dx, dy, speed;
-    private final double MAX_SPEED = 13;
+    private final double MAX_SPEED = 15.0;
 
-    public Ball(int x, int y, int diameter) {
+    public Ball(int x, int y, int diameter) throws InterruptedException {
         this.x = x;
         this.y = y;
         this.diameter = diameter;
         reset();
     }
 
-    public void reset() {
+    public void reset() throws InterruptedException {
         x = 400 - diameter / 2;
         y = 300 - diameter / 2;
         Random rand = new Random();
+
         speed = 8; // més ràpida
+        Thread.sleep(250); // Pausa abans de reiniciar la pilota
         dx = rand.nextBoolean() ? speed : -speed;
         dy = (rand.nextDouble() - 0.5) * speed;
     }

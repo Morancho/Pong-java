@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     private boolean upPressed, downPressed, wPressed, sPressed;
 
-    public GamePanel(GameMode mode) {
+    public GamePanel(GameMode mode) throws InterruptedException {
         this.mode = mode;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.BLACK);
@@ -64,10 +64,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         // Punts
         if (ball.getX() < 0) {
             score.rightPoint();
-            ball.reset();
+            try {
+                ball.reset();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (ball.getX() > WIDTH) {
             score.leftPoint();
-            ball.reset();
+            try {
+                ball.reset();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         // Comprovar guanyador

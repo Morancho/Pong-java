@@ -24,12 +24,20 @@ public class Main {
 
         localButton.addActionListener((ActionEvent e) -> {
             frame.dispose();
-            new PongGame(GameMode.LOCAL);
+            try {
+                new PongGame(GameMode.LOCAL);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         aiButton.addActionListener((ActionEvent e) -> {
             frame.dispose();
-            new PongGame(GameMode.VS_AI);
+            try {
+                new PongGame(GameMode.VS_AI);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         frame.add(new JLabel("Tria el mode de joc:", SwingConstants.CENTER));

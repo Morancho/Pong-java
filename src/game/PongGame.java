@@ -6,8 +6,8 @@ import util.GameMode;
 import javax.swing.*;
 
 public class PongGame {
-    public PongGame(GameMode mode) {
-        JFrame frame = new JFrame("PONG - Oriol Edition");
+    public PongGame(GameMode mode) throws InterruptedException {
+        JFrame frame = new JFrame("PONG - Java Edition");
         GamePanel panel = new GamePanel(mode);
         frame.add(panel);
         frame.pack();
