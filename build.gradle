@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'  // Canvia-ho si vols
+version = '1.0'
+
+sourceCompatibility = '17'  // O la versió Java que facis servir
+
+application {
+    mainClass = 'pong.main.Main'  // Aquí posa el paquet i classe amb el main
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Aquí pots afegir dependències si les necessites
+    // Exemple:
+    // implementation 'org.slf4j:slf4j-api:1.7.30'
+}
+
