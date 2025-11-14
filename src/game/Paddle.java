@@ -5,6 +5,7 @@ import java.awt.*;
 public class Paddle {
     private int x, y, width, height;
     private int speed = 8;
+    private int aiSpeed = 8;
 
     public Paddle(int x, int y, int width, int height) {
         this.x = x;
@@ -16,9 +17,12 @@ public class Paddle {
     public void moveUp() { if (y > 0) y -= speed; }
     public void moveDown() { if (y < 600 - height) y += speed; }
 
+    public void moveUpAI() { if (y > 0) y -= aiSpeed; }
+    public void moveDownAI() { if (y < 600 - height) y += aiSpeed; }
+
     public void aiMove(Ball ball) {
-        if (ball.getY() + ball.getDiameter() / 2 < y + height / 2) moveUp();
-        else if (ball.getY() + ball.getDiameter() / 2 > y + height / 2) moveDown();
+        if (ball.getY() + ball.getDiameter() / 2 < y + height / 2) moveUpAI();
+        else if (ball.getY() + ball.getDiameter() / 2 > y + height / 2) moveDownAI();
     }
 
     public Rectangle getBounds() {

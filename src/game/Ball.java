@@ -6,7 +6,7 @@ import java.util.Random;
 public class Ball {
     private int x, y, diameter;
     private double dx, dy, speed;
-    private final double MAX_SPEED = 15.0;
+    private final double MAX_SPEED = 17;
 
     public Ball(int x, int y, int diameter) throws InterruptedException {
         this.x = x;
